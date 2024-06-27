@@ -154,7 +154,24 @@
                       class="[class names]" title="博物館的史前陶罐修補" alt="博物館的史前陶罐修補"
                 ><figcaption>博物館的史前陶罐修補</figcaption></figure>
 
-<div class="video-container"><iframe src="https://www.youtube.com/embed/OWP8a6ZhQMg" frameborder="0" loading="lazy" allowfullscreen></iframe></div>
+<style>
+.container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+.video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+</style>
+<div class=container>
+<iframe class=video src="https://www.youtube.com/embed/OWP8a6ZhQMg?si=OuQFh0TmDjhNiqwY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 <p>我個人是滿喜歡他的鈴聲的，會由小聲慢慢的漸強到超大聲，上方的關閉鬧鈴鈕也設計得滿好的，按一下是貪睡十分鐘，如果要完全關閉的話需要向下壓並旋轉，防止無意識的直接按掉鬧鈴</p>
 <h3 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h3><figure class="image-caption"><img  
