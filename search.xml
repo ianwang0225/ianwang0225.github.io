@@ -1,6 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>利用docker在mac上安裝hexo</title>
+    <url>/2024/06/28/install-hexo-on-mac-with-docker/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>不知是什麼原因，我嘗試了許多次都無法正常地在 mac 上安裝 hexo ，因此就只好使用 docker 安裝 ubuntu 之後再在模擬環境內安裝 hexo ，然而最近換了<del>新</del>(我爸淘汰的舊mac)電腦之後我就忘記當初是怎麼裝的了！！！ ｡ﾟヽ(ﾟ´Д&#96;)ﾉﾟ｡ ，因為當初大部分安裝都是 Gallen 幫我用的我只有在旁邊看戲 (́◉◞౪◟◉‵) ，所以這次也只好找他求救，順便更加深入了解並寫成文章以防以後忘記。</p>
+<h3 id="安裝-docker"><a href="#安裝-docker" class="headerlink" title="安裝 docker"></a>安裝 docker</h3><p>首先先到 <a class="link"   href="https://www.docker.com/get-started/" >docker 官網 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 下載 docker 應用程式並安裝，安裝時的設定使用預設即可</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/1.png"
+                      class="[class names]"
+                >
+<p>安裝完成後登入或註冊一個新帳號即可開始使用</p>
+<h3 id="安裝-Ubuntu-並掛載資料夾與-port-forwarding"><a href="#安裝-Ubuntu-並掛載資料夾與-port-forwarding" class="headerlink" title="安裝 Ubuntu 並掛載資料夾與 port forwarding"></a>安裝 Ubuntu 並掛載資料夾與 port forwarding</h3><p>在 docker 上安裝 ubuntu 的第一步就是先從 docker hub 上下載 ubuntu 的 image 再使用 <code>docker run</code> 指令建立 container ,但此指令在本地沒有 image 的情況下會自動下載image後再建立 container ，因此只要在terminal鍵入以下令即可建立 container 並掛載資料夾與 port forwarding</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -i -t --name my_ubuntu -p 4000:4000 -v /Users/ianwang/IanWang_data/Document/vscode:/mnt/vscode ubuntu</span><br></pre></td></tr></table></figure></div>
+<p>參數說明：</p>
+<ul>
+<li><code>run</code> : 由 image 建立 container</li>
+<li><code>-i</code> : <code>-i</code> 或<code>--interactive</code> 會使容器的標準輸入(STDIN)保持開啟狀態，並允許透過標準輸入將指令傳送至容器</li>
+<li><code>-t</code> : 在容器中建立了一個終端機</li>
+<li><code>--name</code> : 替 container 取一個容易識別的名字，若未指定， docker 將隨機生成名字</li>
+<li><code>-p</code> : 通訊附轉接（port forwarding），格式為 -p <mark>本地port</mark>:<mark>container內的port</mark>，由於 hexo 的預設 server port 為4000因此這裡設為4000</li>
+<li><code>-v</code> : 綁定掛載（bind mount），格式為 -v &#x2F;<mark>目標路徑（mac內想掛載的資料夾）</mark>:&#x2F;<mark>掛載路徑（container內的路徑）</mark></li>
+<li><code>ubuntu</code> : image 的名稱，一般建議使用官方的 image 但若要使用其他 image 可使用 <code> docker search</code>指令搜尋</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/2.png"
+                      class="[class names]"
+                >
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/3.png"
+                      class="[class names]"
+                >
+<p>鍵入指令後可以在 docker desktop 的 container 欄看見出現了一個新的my_ubuntu</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/4.png"
+                      class="[class names]"
+                >
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/5.png"
+                      class="[class names]"
+                >
+<p>點入my_ubuntu後在進入inspect欄內看見 PortBinding 與 Mount 後有剛輸入的參數就代表綁定成功了ヽ( ° ▽°)ノ</p>
+<h3 id="啟動container"><a href="#啟動container" class="headerlink" title="啟動container"></a>啟動container</h3><p>在 terminal 輸入以下指令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker start -i my_ubuntu</span><br></pre></td></tr></table></figure></div>
+
+  <div class="note p-4 mb-4 rounded-small warning">
+    <p>start 指令與 run 指令不一樣，前者為啟動現有容器;後者為建立容器，別搞混啦！！！（這我´-ω-｀）</p>
+
+  </div>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/6.png"
+                      class="[class names]"
+                >
+<p><code>cd</code>進入<code>mnt</code>後就可以看見先前掛載的資料夾了</p>
+<h3 id="安裝-Hexo"><a href="#安裝-Hexo" class="headerlink" title="安裝 Hexo"></a>安裝 Hexo</h3><p>在安裝 hexo 之前必須先利用 ubuntu 內建的 atp 的套件管理器來安裝名為 npm 的套件管理器才可使用<code>apt install</code>指令安裝 hexo<br>進入containe 後在 terminal 輸入以下指令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ apt update</span><br><span class="line">$ apt install npm</span><br></pre></td></tr></table></figure></div>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/7.png"
+                      class="[class names]"
+                >
+<p>安裝時會需要選擇地區與時區</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/8.png"
+                      class="[class names]"
+                >
+<p>安裝完後使用<code>npm -v</code>檢查是否安裝成功<br>有出現版本即代表成功啦！！</p>
+<p>在來就進入最精彩的部分啦！！<b style="font-size: 30px">安裝hexo</b><style type="text/css">b{animation:color-change 1s infinite;}@keyframes color-change{0%{color:red;}16.67%{color:orange;}33.34%{color:yellow;}50.01%{color:green;}66.68%{color:blue;}83.35%{color:violet;}100%{color:purple;}}</style><br>我好興奮啊啊啊錒啊ᕕ ( ᐛ ) ᕗ</p>
+<p>直接輸入以下指令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br><span class="line">$ hexo init blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line">$ npm install</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></div>
+<p>詳細解說可以在<a class="link"   href="https://hexo.io/zh-tw/" >官網 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>上找到</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/9.png"
+                      class="[class names]"
+                >
+<p>出現<code>Hexo is running</code>時點入後方連結即可進入localhost預覽網頁！！</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/10.png"
+                      class="[class names]"
+                >
+<p>恭喜你成功安裝 hexo 囉！！ヽ(●´∀&#96;●)ﾉ</p>
+<h3 id="使用-GitHub-CLI-上傳到-Github-Pages-上"><a href="#使用-GitHub-CLI-上傳到-Github-Pages-上" class="headerlink" title="使用 GitHub CLI 上傳到 Github Pages 上"></a>使用 GitHub CLI 上傳到 Github Pages 上</h3><p>雖然 hexo 有內建上傳至 Github Pages 的指令，但不知為何單獨使用的話在docker內會一直登入失敗，無法使用，因此才要安裝 GitHub CLI 來代替 hexo 內建登入github的方法</p>
+<p>使用以下指令來安裝GitHub CLI</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ apt install gh</span><br></pre></td></tr></table></figure></div>
+<p>安裝完成後鍵入以下指令來登入github，輸入後會跳出一些選項，下圖為我的選擇</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ gh auth login</span><br></pre></td></tr></table></figure></div>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/11.png"
+                      class="[class names]"
+                >
+
+
+  <div class="note p-4 mb-4 rounded-small warning">
+    <p>Authenticate Git with your GitHub credentials? 這項要記得選 yes，不然會登入失敗</p>
+
+  </div>
+<p>出現<code>First copy your one-time code:xxxx-xxxx</code>時，使用瀏覽器開啟以下網址 <a class="link"   href="https://github.com/login/device" >https://github.com/login/device <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 登入你的 github 帳號並貼上前面的八位驗證碼</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/12.png"
+                      class="[class names]"
+                >
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/13.png"
+                      class="[class names]"
+                >
+<p>按下綠色的授權鈕</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/post_images/install-hexo-on-mac-with-docker/14.png"
+                      class="[class names]"
+                >
+<p>成功在docker內登入 github 了！！</p>
+<h3 id="把網站加入-Google-索引內"><a href="#把網站加入-Google-索引內" class="headerlink" title="把網站加入 Google 索引內"></a>把網站加入 Google 索引內</h3>]]></content>
+  </entry>
+  <entry>
     <title>修復古老精工鬧鐘</title>
     <url>/2024/03/10/restoring-old-seiko-alarm-clock/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>近日在老媽的櫃子裡翻到了一台看起來經歷過不少歲月的SEIKO鬧鐘，經過詢問後發現是老爸小時候在用的，幾年前由於智慧型手機的普及而被棄置在櫃子的角落不再使用，所以說此鬧鐘至今起碼也有40年的歷史了，裝上電池後工作正常，但錶盤邊緣的塑膠破裂，時鐘內部也機滿了灰塵，由於本人目前還有使用實體鬧鐘的習慣，因此打算維修清潔後拿來使用。</p>
