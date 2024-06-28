@@ -13,7 +13,7 @@
                 >
 <p>安裝完成後登入或註冊一個新帳號即可開始使用</p>
 <h3 id="安裝-Ubuntu-並掛載資料夾與-port-forwarding"><a href="#安裝-Ubuntu-並掛載資料夾與-port-forwarding" class="headerlink" title="安裝 Ubuntu 並掛載資料夾與 port forwarding"></a>安裝 Ubuntu 並掛載資料夾與 port forwarding</h3><p>在 docker 上安裝 ubuntu 的第一步就是先從 docker hub 上下載 ubuntu 的 image 再使用 <code>docker run</code> 指令建立 container ,但此指令在本地沒有 image 的情況下會自動下載image後再建立 container ，因此只要在terminal鍵入以下指令即可建立 container 並掛載資料夾與 port forwarding</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -i -t --name my_ubuntu -p 4000:4000 -v /Users/ianwang/IanWang_data/Document/vscode:/mnt/vscode ubuntu</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -i -t --name my_ubuntu -p 4000:4000 -v /target:/mount</span><br></pre></td></tr></table></figure></div>
 <p>參數說明：</p>
 <ul>
 <li><code>run</code> : 由 image 建立 container</li>
@@ -64,7 +64,7 @@
                       class="[class names]"
                 >
 <p><code>cd</code>進入<code>mnt</code>後就可以看見先前掛載的資料夾了</p>
-<h3 id="安裝-Hexo"><a href="#安裝-Hexo" class="headerlink" title="安裝 Hexo"></a>安裝 Hexo</h3><p>在安裝 hexo 之前必須先利用 ubuntu 內建的 atp 的套件管理器來安裝名為 npm 的套件管理器才可使用<code>apt install</code>指令安裝 hexo<br>進入containe 後在 terminal 輸入以下指令</p>
+<h3 id="安裝-Hexo"><a href="#安裝-Hexo" class="headerlink" title="安裝 Hexo"></a>安裝 Hexo</h3><p>在安裝 hexo 之前必須先利用 ubuntu 內建的 atp 的套件管理器來安裝名為 npm 的套件管理器才可使用<code>apt install</code>指令安裝 hexo<br>進入container 後在 terminal 輸入以下指令</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ apt update</span><br><span class="line">$ apt install npm</span><br></pre></td></tr></table></figure></div>
 <img  
                      lazyload
@@ -143,7 +143,7 @@
                       class="[class names]"
                 >
 <p>正常來說應該就能順利 deploy 上 Github Pages 了 如果失敗的話可以試著再次重新登入</p>
-<h3 id="把網站加入-Google-索引內"><a href="#把網站加入-Google-索引內" class="headerlink" title="把網站加入 Google 索引內"></a>把網站加入 Google 索引內</h3><p>如果想要讓自己的網站增加曝光度的話，可以試著利用 google search console 把網站加入到 Google 索引內，這樣他人在使用 google 搜尋引擎時，就能直接找到你的網站 d(&#96;･∀･)b<br>首先進入 <a class="link"   href="https://search.google.com/search-console/about1u/4" >google search console <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 並按下”立即開始”</p>
+<h3 id="把網站加入-Google-索引內"><a href="#把網站加入-Google-索引內" class="headerlink" title="把網站加入 Google 索引內"></a>把網站加入 Google 索引內</h3><p>如果想要讓自己的網站增加曝光度的話，可以試著利用 google search console 把網站加入到 Google 索引內，這樣他人在使用 google 搜尋引擎時，就能直接找到你的網站 d(&#96;･∀･)b<br>首先進入 <a class="link"   href="https://search.google.com/search-console/" >google search console <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 並按下”立即開始”</p>
 <img  
                      lazyload
                      src="/images/loading.svg"
@@ -157,7 +157,7 @@
                      data-src="/images/post_images/install-hexo-on-mac-with-docker/17.png"
                       class="[class names]"
                 >
-<p>接著使用 html 驗證方法把上圖的html檔下載下來</p>
+<p>接著使用”將HTML檔案上傳到你的網站”驗證方法把上圖的html檔下載下來</p>
 <img  
                      lazyload
                      src="/images/loading.svg"
@@ -182,7 +182,7 @@
                      data-src="/images/post_images/install-hexo-on-mac-with-docker/20.png"
                       class="[class names]"
                 >
-<p>好耶！驗證成功(<em>‘ v&#96;</em>)</p>
+<p>好耶！驗證成功( ͡° ͜ʖ ͡ °)</p>
 <img  
                      lazyload
                      src="/images/loading.svg"
